@@ -31,12 +31,29 @@
       setInterval(goTimer, 10)
     });
 
+    var addZero = function(value){  //functionが10を超えた時に0を足す
+      if(value < 10){
+        value = '0' + value;
+      }
+      return value;
+    }
+
     var goTimer = function(){
       var now = new Date();
 
       var milli = now.getTime() - start.getTime();  //今の時間からボタンを押した時間を引き算する
-      var seconds = Math.floor(milli / 1000);  //秒を1000で割って、小数点以下を切り捨てる
-      document. getElementById('timer').innerHTML = seconds;  
+      var seconds = Math.floor(milli / 1000);  //秒を表示 1000で割って、小数点以下を切り捨てる
+      var minutes = Math.floor(seconds / 60);  //分 秒を60で割る
+      var hours = Math.floor(minutes / 60);
+
+      seconds = seconds - minutes * 60; //seconds（秒）が60を超えた場合、超えた分を引く
+      minutes = minutes - hours * 60;
+
+      hours = addZero(hours);
+      minutes = addZero(minutes);
+      seconds = addZero(seconds);
+
+      document. getElementById('timer').innerHTML = hours + ' : ' + minutes + ' : ' + seconds;  
     }
 
   </script>
